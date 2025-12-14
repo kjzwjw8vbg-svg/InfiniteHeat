@@ -1,7 +1,9 @@
-elements.test_fire = {
-    color: "red",
+
+elements.infinite_fire = {
+    color: "orange",
     behavior: behaviors.GAS,
     category: "energy",
-    temp: 100000,
-    state: "gas"
+    temp: 1000000,
+    state: "gas",
+    burn: 10000
 };
