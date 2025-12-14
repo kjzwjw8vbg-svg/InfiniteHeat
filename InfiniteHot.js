@@ -1,41 +1,24 @@
-runAfterLoad(() => {
-    const glowElements = ["fire", "lava", "plasma", "lightning"];
+// Sandboxels Red Water Script
+// This script turns all water into red in the Sandboxels game
 
-    function brighten(color, amt) {
-        if (!color || typeof color !== "string") return color;
-        if (!color.startsWith("rgb")) return color;
+// Wait until the game is loaded
+setTimeout(() => {
+    // Check if the pixel system exists
+    if (window.PixelManager && window.PixelManager.pixels) {
+        // Loop through all defined pixels
+        for (let key in PixelManager.pixels) {
+            let pixel = PixelManager.pixels[key];
 
-        let nums = color.match(/\d+/g);
-        if (!nums) return color;
-
-        let r = Math.min(255, +nums[0] + amt);
-        let g = Math.min(255, +nums[1] + amt);
-        let b = Math.min(255, +nums[2] + amt);
-
-        return `rgb(${r},${g},${b})`;
-    }
-
-    glowElements.forEach(el => {
-        if (!elements[el]) return;
-
-        const oldTick = elements[el].tick;
-
-        elements[el].tick = function(pixel) {
-            if (oldTick) oldTick(pixel);
-
-            for (let dx = -1; dx <= 1; dx++) {
-                for (let dy = -1; dy <= 1; dy++) {
-                    let x = pixel.x + dx;
-                    let y = pixel.y + dy;
-                    if (outOfBounds(x, y)) continue;
-
-                    let p = pixelMap[x][y];
-                    if (!p) continue;
-
-                    p.color = brighten(p.color, 20);
-                }
+            // If the pixel is water, change its color to red
+            if (pixel.name.toLowerCase().includes("water")) {
+                pixel.color = "#FF0000"; // Bright red
             }
-        };
-    });
-});
+        }
+
+        console.log("All water pixels are now red!");
+    } else {
+        console.log("PixelManager not found. Make sure Sandboxels is loaded.");
+    }
+}, 1000); // 1 second delay to ensure game is fully loaded
+
 
