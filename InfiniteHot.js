@@ -1,9 +1,9 @@
 
 elements.infinite_fire = {
-    color: "orange",
+    color: "#ff5500",
     behavior: behaviors.GAS,
     category: "energy",
-    temp: 1000000,
+    temp: 500000,
     state: "gas",
     burn: 10000
 };
